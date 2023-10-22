@@ -1,7 +1,7 @@
 body {
       font-family: Arial, sans-serif;
       text-align: center;
-      background-color: #f5f5f5;
+      background-color: #a0a815;;
     }
     h1 {
       color: #333;
@@ -33,7 +33,7 @@ body {
     }
     .countd{
         margin: 50px;
-        background-color: #f3ff12;
+        background-color: #ecf478;
         padding: 20px;
         border-radius: 10px; 
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);    
