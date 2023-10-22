@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      color: #333;
+    }
+    input[type="number"] {
+      width: 60px;
+      padding: 5px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    #timerDisplay {
+      font-size: 24px;
+    }
+    #timerValue {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+    .countd{
+        margin: 50px;
+        background-color: #f3ff12;
+        padding: 20px;
+        border-radius: 10px; 
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);    
+    }
+    @media (max-width: 600px)
+    {
+  .countd {
+    max-width: 90%;
+    padding: 43px;
+  }
+  button {
+    font-size: 14px;
+  }
+}
+@media (max-width: 400px)
+{
+  .countd {
+    padding: 30px;
+  }
+}
+  </style>
+<body>
+    <div class="countd">
+    <h1>Countdown Timer</h1>
+  <p>Set the countdown time (in seconds): <input type="number" id="countdownTime" min="1" value="60"></p>
+  <button id="startButton">Start</button>
+  <button id="stopButton" disabled>Stop</button>
+  <button id="resetButton" disabled>Reset</button>
+
+  <p id="timerDisplay">Time remaining: <span id="timerValue">60</span> seconds</p>
+</div>
+  <script>
+    let timer;
+    let timeLeft = 0;
+
+    const timerValue = document.getElementById("timerValue");
+    const countdownTimeInput = document.getElementById("countdownTime");
+    const startButton = document.getElementById("startButton");
+    const stopButton = document.getElementById("stopButton");
+    const resetButton = document.getElementById("resetButton");
+
+    startButton.addEventListener("click", startTimer);
+    stopButton.addEventListener("click", stopTimer);
+    resetButton.addEventListener("click", resetTimer);
+
+    function startTimer() {
+      const countdownTime = parseInt(countdownTimeInput.value, 10);
+      if (isNaN(countdownTime) || countdownTime <= 0) {
+        alert("Please enter a valid countdown time.");
+        return;
+      }
+
+      timeLeft = countdownTime;
+      updateDisplay();
+      startButton.disabled = true;
+      stopButton.disabled = false;
+      resetButton.disabled = false;
+
+      timer = setInterval(function () {
+        timeLeft -= 1;
+        if (timeLeft <= 0) {
+          stopTimer();
+        }
+        updateDisplay();
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timer);
+      startButton.disabled = false;
+      stopButton.disabled = true;
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      timeLeft = 0;
+      updateDisplay();
+      startButton.disabled = false;
+      stopButton.disabled = true;
+      resetButton.disabled = true;
+    }
+
+    function updateDisplay() {
+      timerValue.textContent = timeLeft;
+    }
+  </script>
+</body>
+</html>
